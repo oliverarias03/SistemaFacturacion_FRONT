@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light ">
+  <a class="navbar-brand" >Facturacion App</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/inicio">Inicio</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/clientes">Clientes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/articulos">Articulos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/vendedores">Vendedores</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/facturacion">Facturacion</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/consultas">Consultas</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/contabilidad">Contabilidad</a>
+      </li>
+    </ul>
+    <div class="form-inline">
+      <p class="lead my-2 mr-2"> Bienvenido, {{vendedorNombre}}</p>
+      <button class="btn btn-outline-danger my-2 " (click)="logout()">Cerrar Sesion</button>
+    </div>
+  </div>
+</nav>
