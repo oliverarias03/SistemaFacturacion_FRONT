@@ -67,28 +67,32 @@ export class ArticulosComponent implements OnInit {
   }
 
   editArticulos() {
-    Swal.fire({
-      title: 'Seguro que desea modificar este elemento?',
-      showCancelButton: true,
-      confirmButtonText: 'editar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.srv.editArticulos(this.articulo).subscribe((res) => {
-          Swal.fire({
-            title: 'Articulo Modificado',
-            icon: 'success'
+    if(this.articulo.Precio < 0){
+      Swal.fire("Precio debe ser positivo","","error");
+    }else{
+      Swal.fire({
+        title: 'Seguro que desea modificar este elemento?',
+        showCancelButton: true,
+        confirmButtonText: 'editar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.srv.editArticulos(this.articulo).subscribe((res) => {
+            Swal.fire({
+              title: 'Articulo Modificado',
+              icon: 'success'
+            });
+          }, (error) => {
+            Swal.fire({
+              title: 'Error!',
+              text: error.error,
+              icon: 'error'
+            });
+          }, () => {
+            this.getArticulos();
           });
-        }, (error) => {
-          Swal.fire({
-            title: 'Error!',
-            text: error.error,
-            icon: 'error'
-          });
-        }, () => {
-          this.getArticulos();
-        });
-      }
-    })
+        }
+      });
+    }
   }
 
   openAddArticulos() {
@@ -96,28 +100,32 @@ export class ArticulosComponent implements OnInit {
   }
 
   addArticulos() {
-    Swal.fire({
-      title: 'Seguro que desea agregar este elemento?',
-      showCancelButton: true,
-      confirmButtonText: 'agregar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.srv.createArticulos(this.articulo).subscribe((res) => {
-          Swal.fire({
-            title: 'Articulo Agregado',
-            icon: 'success'
+    if(this.articulo.Precio < 0){
+      Swal.fire("Precio debe ser positivo","","error");
+    }else{
+      Swal.fire({
+        title: 'Seguro que desea agregar este elemento?',
+        showCancelButton: true,
+        confirmButtonText: 'agregar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.srv.createArticulos(this.articulo).subscribe((res) => {
+            Swal.fire({
+              title: 'Articulo Agregado',
+              icon: 'success'
+            });
+          }, (error) => {
+            Swal.fire({
+              title: 'Error!',
+              text: error.error,
+              icon: 'error'
+            });
+          }, () => {
+            this.getArticulos();
           });
-        }, (error) => {
-          Swal.fire({
-            title: 'Error!',
-            text: error.error,
-            icon: 'error'
-          });
-        }, () => {
-          this.getArticulos();
-        });
-      }
-    })
+        }
+      });
+    }
   }
 
 }

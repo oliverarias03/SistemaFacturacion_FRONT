@@ -78,29 +78,33 @@ export class FacturacionComponent implements OnInit {
   }
 
   editFacturacion(){
-    Swal.fire({
-      title: 'Seguro que desea modificar?',
-      showCancelButton: true,
-      confirmButtonText: 'editar'
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        this.srv.editFacturacion(this.facturacion).subscribe((res)=>{
-            Swal.fire({
-              title: 'Factura Modificada',
-              icon: 'success'
-            });
-        },(error)=>{
-            Swal.fire({
-              title: 'Error!',
-              text: error.error,
-              icon: 'error'
-            });
-        },()=>{
-          this.getFacturacion();
-        });
-      }
-    })
+    if(this.facturacion.Cantidad < 0 || this.facturacion.PrecioUnitario < 0){
+      Swal.fire("Cantidad y/o Precio Unitario debe ser positiva","","error");
+    }else{
+      Swal.fire({
+        title: 'Seguro que desea modificar?',
+        showCancelButton: true,
+        confirmButtonText: 'editar'
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          this.srv.editFacturacion(this.facturacion).subscribe((res)=>{
+              Swal.fire({
+                title: 'Factura Modificada',
+                icon: 'success'
+              });
+          },(error)=>{
+              Swal.fire({
+                title: 'Error!',
+                text: error.error,
+                icon: 'error'
+              });
+          },()=>{
+            this.getFacturacion();
+          });
+        }
+      });
+    }
   }
 
   openAddFacturacion(){
@@ -111,30 +115,34 @@ export class FacturacionComponent implements OnInit {
   }
 
   addFacturacion(){
-    Swal.fire({
-      title: 'Seguro que desea agregar?',
-      showCancelButton: true,
-      confirmButtonText: 'agregar'
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
+    if(this.facturacion.Cantidad < 0 || this.facturacion.PrecioUnitario < 0){
+      Swal.fire("Cantidad y/o Precio Unitario debe ser positiva","","error");
+    }else{
+      Swal.fire({
+        title: 'Seguro que desea agregar?',
+        showCancelButton: true,
+        confirmButtonText: 'agregar'
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
 
-        this.srv.createFacturacion(this.facturacion).subscribe((res)=>{
-            Swal.fire({
-              title: 'Facturacion Agregada',
-              icon: 'success'
-            });
-        },(error)=>{
-            Swal.fire({
-              title: 'Error!',
-              text: error.error,
-              icon: 'error'
-            });
-        },()=>{
-          this.getFacturacion();
-        });
-      }
-    })
+          this.srv.createFacturacion(this.facturacion).subscribe((res)=>{
+              Swal.fire({
+                title: 'Facturacion Agregada',
+                icon: 'success'
+              });
+          },(error)=>{
+              Swal.fire({
+                title: 'Error!',
+                text: error.error,
+                icon: 'error'
+              });
+          },()=>{
+            this.getFacturacion();
+          });
+        }
+      });
+    }
   }
 
   getArticulos(){
@@ -148,6 +156,12 @@ export class FacturacionComponent implements OnInit {
     this.srv.getClients().subscribe((res)=>{
       this.clienteList = res;
       this.clienteList = this.clienteList.filter(x => x.Estado === 'Activo');
+    });
+  }
+
+  searchPrice(idArticulo: number){
+    this.srv.getArticulosById(idArticulo).subscribe((res)=>{
+      this.facturacion.PrecioUnitario = res[0].Precio;
     });
   }
 

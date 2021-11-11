@@ -71,29 +71,33 @@ export class VendedoresComponent implements OnInit {
   }
 
   editVendedores(){
-    Swal.fire({
-      title: 'Seguro que desea modificar?',
-      showCancelButton: true,
-      confirmButtonText: 'editar'
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        this.srv.editVendedor(this.vendedor).subscribe((res)=>{
-            Swal.fire({
-              title: 'Vendedor Modificado',
-              icon: 'success'
-            });
-        },(error)=>{
-            Swal.fire({
-              title: 'Error!',
-              text: error.error,
-              icon: 'error'
-            });
-        },()=>{
-          this.getVendedores();
-        });
-      }
-    })
+    if(this.vendedor.Comision < 0){
+      Swal.fire("Comision debe ser positiva","","error");
+    }else{
+      Swal.fire({
+        title: 'Seguro que desea modificar?',
+        showCancelButton: true,
+        confirmButtonText: 'editar'
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          this.srv.editVendedor(this.vendedor).subscribe((res)=>{
+              Swal.fire({
+                title: 'Vendedor Modificado',
+                icon: 'success'
+              });
+          },(error)=>{
+              Swal.fire({
+                title: 'Error!',
+                text: error.error,
+                icon: 'error'
+              });
+          },()=>{
+            this.getVendedores();
+          });
+        }
+      });
+    }
   }
 
   openAddVendedores(){
@@ -101,29 +105,33 @@ export class VendedoresComponent implements OnInit {
   }
 
   addVendedores(){
-    Swal.fire({
-      title: 'Seguro que desea agregar?',
-      showCancelButton: true,
-      confirmButtonText: 'agregar'
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-        this.srv.createVendedor(this.vendedor).subscribe((res)=>{
-            Swal.fire({
-              title: 'Vendedor Agregado',
-              icon: 'success'
-            });
-        },(error)=>{
-            Swal.fire({
-              title: 'Error!',
-              text: error.error,
-              icon: 'error'
-            });
-        },()=>{
-          this.getVendedores();
-        });
-      }
-    })
+    if(this.vendedor.Comision < 0){
+      Swal.fire("Comision debe ser positiva","","error");
+    }else{
+      Swal.fire({
+        title: 'Seguro que desea agregar?',
+        showCancelButton: true,
+        confirmButtonText: 'agregar'
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          this.srv.createVendedor(this.vendedor).subscribe((res)=>{
+              Swal.fire({
+                title: 'Vendedor Agregado',
+                icon: 'success'
+              });
+          },(error)=>{
+              Swal.fire({
+                title: 'Error!',
+                text: error.error,
+                icon: 'error'
+              });
+          },()=>{
+            this.getVendedores();
+          });
+        }
+      });
+    }
   }
 
 }
