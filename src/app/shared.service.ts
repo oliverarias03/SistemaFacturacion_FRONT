@@ -207,11 +207,6 @@ export class SharedService {
       );
   }
 
-  //Articulos
-  getArticulos(): Observable<any[]> {
-    return this.http.get<any>(this.APIUrl + 'Articulos/GetArticulos');
-  }
-
   //Clientes
   getClients(): Observable<any[]> {
     return this.http.get<any>(`${this.APIUrl}client`);
@@ -261,6 +256,74 @@ export class SharedService {
 
   deleteClient(value: number) {
     return this.http.delete(`${this.APIUrl}client/${value}`).pipe(
+      map((res: any[] | any) => {
+        return res;
+      })
+    );
+  }
+
+  //Articulos
+  getArticulos():Observable<any[]>{
+    return this.http.get<any>(this.APIUrl+'Articulos/GetArticulos');
+  }
+
+  getArticulosById(id: number): Observable<any> {
+
+    const params: HttpParams = new HttpParams().set("id", id);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      params: params,
+      reportProgress: true
+    };
+
+    return this.http.get(this.APIUrl + 'Articulos/GetArticulosById', httpOptions).pipe(
+      map((res: any[] | any) => {
+        return res;
+      })
+    );
+  }
+
+  createArticulos(value: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      reportProgress: true
+    };
+
+    return this.http.post(this.APIUrl + 'Articulos/Create', JSON.stringify(value), httpOptions).pipe(
+      map((res: any[] | any) => {
+        return res;
+      })
+    );
+  }
+
+  editArticulos(value: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      reportProgress: true
+    };
+
+    return this.http.post(this.APIUrl + 'Articulos/Editar', JSON.stringify(value), httpOptions).pipe(
+      map((res: any[] | any) => {
+        return res;
+      })
+    );
+  }
+
+  deleteArticulos(value: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      reportProgress: true
+    };
+
+    return this.http.post(this.APIUrl + 'Articulos/Eliminar', JSON.stringify(value), httpOptions).pipe(
       map((res: any[] | any) => {
         return res;
       })
