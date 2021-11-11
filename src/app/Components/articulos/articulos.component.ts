@@ -11,7 +11,6 @@ import Swal from 'sweetalert2';
 export class ArticulosComponent implements OnInit {
 
   articulosList: Articulo[] = [];
-  articuloId: number = parseInt(sessionStorage.getItem("articuloId")?.toString()!);
 
   articulo: Articulo = new Articulo();
   estados = [
@@ -20,7 +19,7 @@ export class ArticulosComponent implements OnInit {
   ];
 
   constructor(private srv: SharedService) { }
-    
+
   ngOnInit(): void {
     this.getArticulos();
   }
@@ -37,7 +36,7 @@ export class ArticulosComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Eliminar'
     }).then((result) => {
-      
+
       if (result.isConfirmed) {
         const entity = {
           Id: id
@@ -72,7 +71,7 @@ export class ArticulosComponent implements OnInit {
       title: 'Seguro que desea modificar este elemento?',
       showCancelButton: true,
       confirmButtonText: 'editar'
-    }).then((result) => {      
+    }).then((result) => {
       if (result.isConfirmed) {
         this.srv.editArticulos(this.articulo).subscribe((res) => {
           Swal.fire({

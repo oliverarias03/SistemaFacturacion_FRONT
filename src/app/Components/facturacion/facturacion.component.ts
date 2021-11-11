@@ -3,6 +3,8 @@ import { Facturacion } from 'src/app/models/Facturacion.model';
 import { Articulo } from 'src/app/models/Articulo.model';
 import { SharedService } from 'src/app/shared.service';
 import Swal from 'sweetalert2';
+import { Cliente } from 'src/app/models/Cliente.model';
+import { Vendedor } from 'src/app/models/Vendedor.model';
 
 @Component({
   selector: 'app-facturacion',
@@ -16,17 +18,15 @@ export class FacturacionComponent implements OnInit {
   vendedorName: string = sessionStorage.getItem("vendedorNombre")?.toString()!;
 
   facturacionList: Facturacion[] = [];
-
   facturacion: Facturacion = new Facturacion();
 
   articuloList: Articulo[] = [];
+  clienteList: Cliente[] = [];
 
   constructor(private srv: SharedService) { }
 
   ngOnInit(): void {
     this.getFacturacion();
-    this.getArticulos();
-    console.log(this.articuloList);
   }
 
   getFacturacion(){
@@ -73,6 +73,8 @@ export class FacturacionComponent implements OnInit {
     this.facturacion.Cantidad = entity.Cantidad;
     this.facturacion.Fecha = entity.Fecha;
     this.facturacion.PrecioUnitario = entity.PrecioUnitario;
+    this.getArticulos();
+    this.getClientes();
   }
 
   editFacturacion(){
@@ -85,7 +87,7 @@ export class FacturacionComponent implements OnInit {
       if (result.isConfirmed) {
         this.srv.editFacturacion(this.facturacion).subscribe((res)=>{
             Swal.fire({
-              title: 'Vendedor Modificado',
+              title: 'Factura Modificada',
               icon: 'success'
             });
         },(error)=>{
@@ -104,6 +106,8 @@ export class FacturacionComponent implements OnInit {
   openAddFacturacion(){
     this.facturacion = new Facturacion();
     this.facturacion.IdVendedor = this.vendedorId;
+    this.getArticulos();
+    this.getClientes();
   }
 
   addFacturacion(){
@@ -114,6 +118,7 @@ export class FacturacionComponent implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
+
         this.srv.createFacturacion(this.facturacion).subscribe((res)=>{
             Swal.fire({
               title: 'Facturacion Agregada',
@@ -134,8 +139,15 @@ export class FacturacionComponent implements OnInit {
 
   getArticulos(){
     this.srv.getArticulos().subscribe((res)=>{
-      console.log(res);
       this.articuloList = res;
+      this.articuloList = this.articuloList.filter(x => x.Estado === 'Activo');
+    });
+  }
+
+  getClientes(){
+    this.srv.getClients().subscribe((res)=>{
+      this.clienteList = res;
+      this.clienteList = this.clienteList.filter(x => x.Estado === 'Activo');
     });
   }
 
