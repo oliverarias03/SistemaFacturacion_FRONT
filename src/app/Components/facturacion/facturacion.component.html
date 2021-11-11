@@ -1,2 +1,173 @@
 <app-navbar></app-navbar>
-<p>facturacion works!</p>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 text-center mb-4">
+            <h3>Mantenimiento de Facturacion</h3>
+        </div>
+    </div>
+    <button class="btn btn-outline-primary mb-1" data-toggle="modal" data-target="#addModal" (click)="openAddFacturacion()"><i class="fas fa-user-plus fa-2x"></i></button>
+    <div class="row justity-content-center">
+        <div class="col-12">
+            <table class="table table-striped text-center">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Id Cliente</th>
+                        <th scope="col">Id Vendedor</th>
+                        <th scope="col">Id Articulo</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Comentario</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio Unitario</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let facturacion of facturacionList">
+                        <td>{{facturacion.Id}}</td>
+                        <td>{{facturacion.IdCliente}}</td>
+                        <td>{{facturacion.IdVendedor}}</td>
+                        <td>{{facturacion.IdArticulo}}</td>
+                        <td>{{facturacion.Fecha | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{facturacion.Comentario}}</td>
+                        <td>{{facturacion.Cantidad}}</td>
+                        <td>{{facturacion.PrecioUnitario}}</td>
+                        <td>
+                            <button class="btn text-danger mr-2" (click)="deleteFacturacion(facturacion.Id)"><i class="fas fa-minus-circle"></i></button>
+                            <button class="btn text-warning" (click)="openEditFacturacion(facturacion)" data-toggle="modal" data-target="#editModal"><i class="fas fa-edit"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Add Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Agregar Facturacion</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Id Cliente</label>
+                    <div class="col-sm-10">
+                        <!-- <select class="form-control" [(ngModel)]="facturacion.IdCliente">
+                <option *ngFor="let method in articulosList" [value]="method.IdCliente">{{ method.Descripcion }}</option>>
+              </select> -->
+                        <input type="number" class="form-control" [(ngModel)]="facturacion.IdCliente">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Id Vendedor</label>
+                    <div class="col-sm-10">
+                        <input type="text" value="{{vendedorName}}" readonly class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Id Articulo</label>
+                    <div class="col-sm-10">
+                        <!-- <select class="form-control" [(ngModel)]="facturacion.IdArticulo">
+                            <option *ngFor="let method in articulosList" [value]="method.IdArticulo">{{ method.Descripcion }}</option>>
+                          </select> -->
+                        <input type="number" class="form-control" [(ngModel)]="facturacion.IdArticulo">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Fecha</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" [(ngModel)]="facturacion.Fecha">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Comentario</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" [(ngModel)]="facturacion.Comentario">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Cantidad</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" [(ngModel)]="facturacion.Cantidad">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Precio Unitario</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" [(ngModel)]="facturacion.PrecioUnitario">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="addFacturacion()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Editar Facturacion</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Id Cliente</label>
+                    <div class="col-sm-10">
+                        <!-- <select class="form-control" [(ngModel)]="facturacion.IdCliente"> -->
+                        <!-- <option *ngFor="let method in facturacion" [value]="method.IdCliente">{{ method.IdCliente }}</option>> -->
+                        <!-- </select> -->
+                        <input type="number" class="form-control" [(ngModel)]="facturacion.IdCliente">
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Id Vendedor</label>
+                    <div class="col-sm-10">
+                        <input type="text" value="{{vendedorName}}" readonly class="form-control">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Id Articulo</label>
+                    <div class="col-sm-10">
+                        <input type="text" placeholder="Id Articulo" class="form-control" [(ngModel)]="facturacion.IdArticulo">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Fecha</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" [(ngModel)]="facturacion.Fecha">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Comentario</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" [(ngModel)]="facturacion.Comentario">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Cantidad</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" [(ngModel)]="facturacion.Cantidad">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Precio Unitario</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" [(ngModel)]="facturacion.PrecioUnitario">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="editFacturacion()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

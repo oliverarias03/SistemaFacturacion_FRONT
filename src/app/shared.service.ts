@@ -95,6 +95,80 @@ export class SharedService {
     );
   }
 
+  //Facturacion
+  getFacturaciones():Observable<any[]>{
+    return this.http.get<any>(this.APIUrl+'Facturacion/GetFacturaciones');
+  }
 
+  getFacturacionById(id: number):Observable<any>{
+
+    const params: HttpParams = new HttpParams().set("id", id);
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      params: params,
+      reportProgress: true
+    };
+
+    return this.http.get(this.APIUrl+'Facturacion/GetFacturacionById', httpOptions).pipe(
+      map((res: any[] | any) => {
+        return res;
+      })
+    );
+
+  }
+
+  createFacturacion(value: any){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      reportProgress: true
+    };
+
+    return this.http.post(this.APIUrl+'Facturacion/Create', JSON.stringify(value), httpOptions).pipe(
+      map((res: any[] | any) => {
+        return res;
+      })
+    );
+  }
+
+  editFacturacion(value: any){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      reportProgress: true
+    };
+
+    return this.http.post(this.APIUrl+'Facturacion/Editar', JSON.stringify(value), httpOptions).pipe(
+      map((res: any[] | any) => {
+        return res;
+      })
+    );
+  }
+
+  deleteFacturacion(value: any){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      reportProgress: true
+    };
+
+    return this.http.post(this.APIUrl+'Facturacion/Eliminar', JSON.stringify(value), httpOptions).pipe(
+      map((res: any[] | any) => {
+        return res;
+      })
+    );
+  }
+
+  //Articulos
+  getArticulos():Observable<any[]>{
+    return this.http.get<any>(this.APIUrl+'Articulos/GetArticulos');
+  }
+
+  //Clientes
 }
-
