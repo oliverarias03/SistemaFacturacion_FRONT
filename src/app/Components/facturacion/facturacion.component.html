@@ -5,7 +5,29 @@
             <h3>Mantenimiento de Facturacion</h3>
         </div>
     </div>
-    <button class="btn btn-outline-primary mb-1" data-toggle="modal" data-target="#addModal" (click)="openAddFacturacion()"><i class="fas fa-plus"></i></button>
+    <div class="row justity-content-center">
+      <div class="col-1">
+        <button class="btn btn-outline-primary ml-3 my-1" data-toggle="modal" data-target="#addModal" (click)="openAddFacturacion()"><i class="fas fa-plus"></i></button>
+      </div>
+      <div class="col-10">
+        <div class="form-group row">
+          <div class="col-sm-5">
+            <div class="row">
+              <div class="col-3 mt-1"><label>Desde</label></div>
+              <div class="col-9"><input type="date" class="form-control" [(ngModel)]="desde"></div>
+            </div>
+          </div>
+          <div class="col-sm-7">
+            <div class="row">
+              <div class="col-3 mt-1"><label>Hasta</label></div>
+              <div class="col-7"><input type="date" class="form-control" [(ngModel)]="hasta"></div>
+              <div class="col-1"><button class="btn btn-primary bt-sm mt-1" (click)="buscar()" [disabled]="desde == ''" data-toggle="tooltip" data-placement="top" title="Buscar"><i class="fas fa-search"></i></button></div>
+              <div class="col-1"><button class="btn btn-danger bt-sm mt-1" (click)="clear()" data-toggle="tooltip" data-placement="top" title="Clear"><i class="fas fa-redo"></i></button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="row justity-content-center">
         <div class="col-12">
             <table class="table table-striped text-center">
@@ -19,6 +41,7 @@
                         <th scope="col">Comentario</th>
                         <th scope="col">Cantidad</th>
                         <th scope="col">Precio Unitario</th>
+                        <th scope="col">Id Asiento</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -32,6 +55,7 @@
                         <td>{{facturacion.Comentario}}</td>
                         <td>{{facturacion.Cantidad}}</td>
                         <td>{{facturacion.PrecioUnitario}}</td>
+                        <td>{{facturacion.IdAsiento}}</td>
                         <td>
                             <button class="btn text-danger mr-2" (click)="deleteFacturacion(facturacion.Id)"><i class="fas fa-minus-circle"></i></button>
                             <button class="btn text-warning" (click)="openEditFacturacion(facturacion)" data-toggle="modal" data-target="#editModal"><i class="fas fa-edit"></i></button>

@@ -5,9 +5,24 @@
       <h3>Mantenimiento de Clientes</h3>
     </div>
   </div>
-  <button class="btn btn-outline-primary mb-1" data-toggle="modal" data-target="#addModal" (click)="openAddClient()">
-    <em class="fas fa-plus"></em>
-  </button>
+  <div class="row justity-content-center">
+    <div class="col-1">
+      <button class="btn btn-outline-primary  ml-3 my-1" data-toggle="modal" data-target="#addModal" (click)="openAddClient()">
+        <em class="fas fa-plus"></em>
+      </button>
+    </div>
+    <div class="col-6">
+      <div class="form-group row">
+        <div class="col-sm-5">
+          <input type="text" placeholder="RNC Cliente" class="form-control" [(ngModel)]="vRnc">
+        </div>
+        <div class="col-sm-3">
+          <button class="btn btn-primary bt-sm mt-1 mr-1" (click)="buscar()" [disabled]="vRnc == ''" data-toggle="tooltip" data-placement="top" title="Buscar"><i class="fas fa-search"></i></button>
+          <button class="btn btn-danger bt-sm mt-1" (click)="clear()" data-toggle="tooltip" data-placement="top" title="Clear"><i class="fas fa-redo"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row justity-content-center">
     <div class="col-12">
       <table class="table table-striped text-center">

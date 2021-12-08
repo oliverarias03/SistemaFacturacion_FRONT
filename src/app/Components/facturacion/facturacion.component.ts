@@ -23,6 +23,9 @@ export class FacturacionComponent implements OnInit {
   articuloList: Articulo[] = [];
   clienteList: Cliente[] = [];
 
+  desde: string = "";
+  hasta: string = "";
+
   constructor(private srv: SharedService) { }
 
   ngOnInit(): void {
@@ -163,6 +166,25 @@ export class FacturacionComponent implements OnInit {
     this.srv.getArticulosById(idArticulo).subscribe((res)=>{
       this.facturacion.PrecioUnitario = res[0].Precio;
     });
+  }
+
+  buscar(){
+
+    const date = new Date(this.desde);
+    date.setDate(date.getDate() + 1);
+
+    const date2 = new Date(this.hasta);
+    date2.setDate(date2.getDate() + 1);
+
+    this.srv.searchFacturas2(date,this.hasta === "" ? new Date(0) : date2).subscribe((res)=>{
+      this.facturacionList = res;
+    })
+  }
+
+  clear(){
+    this.desde = "";
+    this.hasta = "";
+    this.getFacturacion();
   }
 
 }

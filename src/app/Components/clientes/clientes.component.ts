@@ -17,6 +17,8 @@ export class ClientesComponent implements OnInit {
     { id: 'Inactivo', label: 'Inactivo' },
   ];
 
+  vRnc: string = "";
+
   constructor(private _service: SharedService) {}
 
   ngOnInit(): void {
@@ -119,5 +121,16 @@ export class ClientesComponent implements OnInit {
       text: message,
       icon: 'error',
     });
+  }
+
+  buscar(){
+    this._service.getClientByRnc(this.vRnc).subscribe((res)=>{
+      this.clientList = res;
+    })
+  }
+
+  clear(){
+    this.vRnc = "";
+    this.getClients();
   }
 }

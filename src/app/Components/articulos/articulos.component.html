@@ -5,7 +5,23 @@
       <h3>Mantenimiento de Articulos</h3>
     </div>
   </div>
-  <button class="btn btn-outline-primary mb-1" data-toggle="modal" data-target="#addModal" (click)="openAddArticulos()"><i class="fas fa-plus"></i></button>
+
+  <div class="row justity-content-center">
+    <div class="col-1">
+      <button class="btn btn-outline-primary ml-3 my-1" data-toggle="modal" data-target="#addModal" (click)="openAddArticulos()"><i class="fas fa-plus"></i></button>
+    </div>
+    <div class="col-6">
+      <div class="form-group row">
+        <div class="col-sm-5">
+          <input type="text" placeholder="Id Articulo" class="form-control" [(ngModel)]="vId">
+        </div>
+        <div class="col-sm-3">
+          <button class="btn btn-primary bt-sm mt-1 mr-1" (click)="buscar()" [disabled]="vId == ''" data-toggle="tooltip" data-placement="top" title="Buscar"><i class="fas fa-search"></i></button>
+          <button class="btn btn-danger bt-sm mt-1" (click)="clear()" data-toggle="tooltip" data-placement="top" title="Clear"><i class="fas fa-redo"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="row justity-content-center">
     <div class="col-12">
       <table class="table table-striped text-center">

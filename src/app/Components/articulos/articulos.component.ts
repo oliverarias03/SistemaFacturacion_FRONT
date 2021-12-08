@@ -12,6 +12,8 @@ export class ArticulosComponent implements OnInit {
 
   articulosList: Articulo[] = [];
 
+  vId: string = "";
+
   articulo: Articulo = new Articulo();
   estados = [
     { id: "Activo", label: "Activo" },
@@ -126,6 +128,17 @@ export class ArticulosComponent implements OnInit {
         }
       });
     }
+  }
+
+  buscar(){
+    this.srv.getArticulosById(parseInt(this.vId)).subscribe((res)=>{
+      this.articulosList = res;
+    })
+  }
+
+  clear(){
+    this.vId = "";
+    this.getArticulos();
   }
 
 }

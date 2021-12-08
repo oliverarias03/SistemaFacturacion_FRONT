@@ -2,12 +2,13 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SharedService {
-  readonly APIUrl = 'https://localhost:44310/api/';
+  readonly APIUrl = environment.url;
 
   constructor(private http: HttpClient) {}
 
@@ -101,7 +102,7 @@ export class SharedService {
   login(value: any) {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
       }),
       reportProgress: true,
     };
@@ -328,5 +329,60 @@ export class SharedService {
         return res;
       })
     );
+  }
+
+  searchFacturas(desde: Date, hasta: Date): Observable<any> {
+    const params: HttpParams = new HttpParams().set('desde', desde.toDateString()).set('hasta', hasta.toDateString());
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      params: params,
+      reportProgress: true,
+    };
+
+    return this.http
+      .get(this.APIUrl + 'Facturacion/searchFacturas', httpOptions)
+      .pipe(
+        map((res: any[] | any) => {
+          return res;
+        })
+      );
+  }
+
+  contabilizar(data: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      reportProgress: true
+    };
+
+    return this.http.post('https://accountingaccountapi20211205021409.azurewebsites.net/api/AccountingSeat/Register', data, httpOptions).pipe(
+      map((res: any[] | any) => {
+        return res;
+      })
+    );
+  }
+
+  searchFacturas2(desde: Date, hasta: Date): Observable<any> {
+    const params: HttpParams = new HttpParams().set('desde', desde.toDateString()).set('hasta', hasta.toDateString());
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      params: params,
+      reportProgress: true,
+    };
+
+    return this.http
+      .get(this.APIUrl + 'Facturacion/searchFacturas2', httpOptions)
+      .pipe(
+        map((res: any[] | any) => {
+          return res;
+        })
+      );
   }
 }

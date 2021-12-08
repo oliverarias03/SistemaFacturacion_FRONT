@@ -11,6 +11,7 @@ export class Facturacion {
     Comentario: string = "";
     Cantidad: number = 0;
     PrecioUnitario: number = 0;
+    IdAsiento: number = 0;
     IdArticuloNavigation: Articulo = new Articulo();
     IdClienteNavigation: Cliente = new Cliente();
     IdVendedorNavigation: Vendedor = new Vendedor();

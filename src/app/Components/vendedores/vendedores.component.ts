@@ -14,6 +14,8 @@ export class VendedoresComponent implements OnInit {
   vendedoresList: Vendedor[] = [];
   vendedorId: number = parseInt(sessionStorage.getItem("vendedorId")?.toString()!);
 
+  vCedula: string = "";
+
   vendedor: Vendedor = new Vendedor();
   estados = [
     { id: "Activo", label: "Activo" },
@@ -132,6 +134,17 @@ export class VendedoresComponent implements OnInit {
         }
       });
     }
+  }
+
+  buscar(){
+    this.srv.getVendedoresByCedula(this.vCedula).subscribe((res)=>{
+      this.vendedoresList = res;
+    })
+  }
+
+  clear(){
+    this.vCedula = "";
+    this.getVendedores();
   }
 
 }
