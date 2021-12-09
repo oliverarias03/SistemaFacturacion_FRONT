@@ -385,4 +385,25 @@ export class SharedService {
         })
       );
   }
+
+  UpdateInvoices(value: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      reportProgress: true,
+    };
+
+    return this.http
+      .post(
+        this.APIUrl + 'Facturacion/UpdateInvoices',
+        value,
+        httpOptions
+      )
+      .pipe(
+        map((res: any[] | any) => {
+          return res;
+        })
+      );
+  }
 }

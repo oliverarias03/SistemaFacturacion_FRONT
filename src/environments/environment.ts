@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // url: 'https://localhost:44310/api/'
-  url: 'https://facturacionapi.azure-api.net/api/'
+  url: 'https://localhost:44310/api/'
+  // url: 'https://v2facturacionapi.azurewebsites.net/api/'
 };
 
 /*

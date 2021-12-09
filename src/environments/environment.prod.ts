@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url: 'https://facturacionapi.azure-api.net/api/'
+  url: 'https://v2facturacionapi.azurewebsites.net/api/'
 };
